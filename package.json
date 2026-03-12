@@ -1,0 +1,19 @@
+{
+  "name": "bingx-perps-trade-bot",
+  "version": "1.0.1",
+  "description": "Production-oriented prototype trading bot for BingX perpetual futures",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/index.js --mode=simulationMode --profile=balanced",
+    "start:forward": "node src/index.js --mode=forwardTestMode --profile=balanced",
+    "start:live": "node src/index.js --mode=liveMode --profile=conservative --confirm-live",
+    "backtest": "node src/index.js --mode=backtestMode --profile=balanced",
+    "smoke:simulation": "node src/index.js --mode=simulationMode --profile=balanced --smoke --ticks=3",
+    "test": "node --test tests/*.test.js",
+    "lint": "bash -lc 'for f in $(find src tests -name \"*.js\" | sort); do node --check \"$f\"; done'"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

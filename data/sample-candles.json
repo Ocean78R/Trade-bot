@@ -1,0 +1,7 @@
+[
+  {"open":100,"high":101,"low":99,"close":100.5,"volume":12,"closeTime":1},
+  {"open":100.5,"high":102,"low":100,"close":101.8,"volume":15,"closeTime":2},
+  {"open":101.8,"high":103,"low":101,"close":102.2,"volume":18,"closeTime":3},
+  {"open":102.2,"high":103.5,"low":102,"close":103.2,"volume":17,"closeTime":4},
+  {"open":103.2,"high":104,"low":103,"close":103.7,"volume":14,"closeTime":5}
+]

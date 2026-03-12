@@ -1,0 +1,186 @@
+{
+  "defaultMode": "simulationMode",
+  "mode": "simulationMode",
+  "symbols": [
+    "BTC-USDT",
+    "ETH-USDT"
+  ],
+  "leverage": 5,
+  "api": {
+    "restBaseUrl": "https://open-api.bingx.com",
+    "wsBaseUrl": "wss://open-api-ws.bingx.com/market",
+    "wsSubscriptions": [
+      {
+        "id": "ticker-btc",
+        "reqType": "sub",
+        "dataType": "BTC-USDT@ticker"
+      }
+    ]
+  },
+  "fees": {
+    "makerFeeRate": 0.0002,
+    "takerFeeRate": 0.0005
+  },
+  "simulation": {
+    "initialBalance": 10000
+  },
+  "backtest": {
+    "dataFile": "data/sample-candles.json"
+  },
+  "liveMode": {
+    "enabled": false
+  },
+  "telegram": {
+    "enabled": true,
+    "botTokenEnvName": "TELEGRAM_BOT_TOKEN",
+    "chatIdEnvName": "TELEGRAM_CHAT_ID",
+    "sendStartupMessage": true,
+    "sendShutdownMessage": true,
+    "sendErrorAlerts": true,
+    "sendRiskAlerts": true,
+    "sendTradeOpen": true,
+    "sendTradeClose": true,
+    "sendAveragingAlerts": true,
+    "sendHedgeAlerts": true,
+    "sendDailySummary": true,
+    "sendPeriodicStatus": true,
+    "dailySummaryTime": "21:00",
+    "periodicStatusIntervalMin": 60,
+    "maxMessageRatePerMinute": 20
+  },
+  "risk": {
+    "positionSizingMode": "riskBased",
+    "baseMarginPerTrade": 100,
+    "baseNotionalPerTrade": 500,
+    "balanceAllocationPercent": 3,
+    "maxRiskPerTradePercent": 1,
+    "maxPortfolioRiskPercent": 8,
+    "minAccountBalance": 200,
+    "minFreeMargin": 100,
+    "minFreeMarginAfterEntry": 80,
+    "minFreeMarginAfterAveraging": 70,
+    "minFreeMarginAfterHedge": 70,
+    "maxDrawdownPercent": 12,
+    "maxDrawdownPerSymbolPercent": 8,
+    "maxConcurrentPositions": 3,
+    "maxConcurrentPositionsPerSymbol": 1,
+    "maxExposurePerSymbol": 0.35,
+    "maxTotalExposure": 0.9,
+    "maxMarginPerSymbol": 2000,
+    "maxMarginTotal": 5000,
+    "maxMarginUsagePercent": 70,
+    "minRewardRiskRatio": 1.5,
+    "minExpectedProfitPercent": 0.2,
+    "maxSpreadPercent": 0.1,
+    "maxSlippagePercent": 0.1,
+    "feeBufferPercent": 0.06,
+    "slippageBufferPercent": 0.08,
+    "stopLossPercent": 0.7,
+    "stopTradingBalance": 150
+  },
+  "strategy": {
+    "type": "trendA",
+    "requiredConfirmationsCount": 5,
+    "requiredSignalScore": 0.7,
+    "volumeConfirmationMultiplier": 1.2,
+    "maxSpreadPercent": 0.1,
+    "maxSlippagePercent": 0.1,
+    "indicators": {
+      "fastEmaPeriod": 9,
+      "slowEmaPeriod": 21,
+      "trendEmaPeriod": 55,
+      "rsiPeriod": 14,
+      "atrPeriod": 14
+    },
+    "long": {
+      "rsiMin": 50,
+      "rsiMax": 70
+    },
+    "short": {
+      "rsiMin": 30,
+      "rsiMax": 50
+    },
+    "enableHedge": true,
+    "hedgeRatio": 0.3,
+    "maxHedgeRatio": 0.5,
+    "hedgeTriggerDrawdownPercent": 3,
+    "hedgeTriggerAtrMultiplier": 1.8,
+    "hedgeTakeProfitPercent": 0.7,
+    "hedgeStopLossPercent": 0.5,
+    "riskOffDrawdownPercent": 8,
+    "averagingEnabled": true,
+    "averagingMode": "fixedStep",
+    "averagingTriggerPercent": 0.6,
+    "averagingAtrMultiplier": 1.2,
+    "averagingSizeMultiplier": 1.2,
+    "averagingStepScale": 1.1,
+    "maxAveragingCount": 3,
+    "cooldownBetweenAveragesSec": 180,
+    "minSignalStrengthToAverage": 0.55,
+    "allowAverageOnlyInTrendDirection": true,
+    "maxTotalMarginPerSymbol": 1500,
+    "maxTotalMarginAllSymbols": 3500,
+    "maxPositionNotional": 5000,
+    "maxPositionQty": 5,
+    "takeProfitPercent": 1.2,
+    "stopLossPercent": 0.8,
+    "enablePartialTakeProfit": true,
+    "partialTakeProfitLevels": [
+      0.6,
+      1.0
+    ],
+    "partialTakeProfitSizePercent": [
+      30,
+      30
+    ],
+    "enablePartialStopLoss": true,
+    "partialStopLossLevels": [
+      0.6
+    ],
+    "partialStopLossSizePercent": [
+      25
+    ],
+    "enableTrailingStop": true,
+    "trailingActivationPercent": 0.7,
+    "trailingDistancePercent": 0.35,
+    "trailingAtrMultiplier": 1.1,
+    "maxHoldingTimeMinutes": 240,
+    "minLongPriceImpulsePercent": 0.12,
+    "minShortPriceImpulsePercent": 0.12,
+    "minLongOrderBookImbalance": 0.12,
+    "minShortOrderBookImbalance": 0.12,
+    "minLongVolumeDelta": 20,
+    "minShortVolumeDelta": 20,
+    "minLongBuySellRatio": 1.15,
+    "maxShortBuySellRatio": 0.85,
+    "maxBreakoutChasePercent": 0.35,
+    "hedgeVolatilityThreshold": 0.75,
+    "emergencyVolatilityScore": 0.9
+  },
+  "profiles": {
+    "conservative": {
+      "risk": {
+        "maxRiskPerTradePercent": 0.5,
+        "maxDrawdownPercent": 8,
+        "maxConcurrentPositions": 2
+      },
+      "leverage": 3
+    },
+    "balanced": {
+      "risk": {
+        "maxRiskPerTradePercent": 1,
+        "maxDrawdownPercent": 12,
+        "maxConcurrentPositions": 3
+      },
+      "leverage": 5
+    },
+    "aggressive": {
+      "risk": {
+        "maxRiskPerTradePercent": 2,
+        "maxDrawdownPercent": 18,
+        "maxConcurrentPositions": 5
+      },
+      "leverage": 10
+    }
+  }
+}
