@@ -54,9 +54,11 @@ async function main() {
 
   if (config.mode === 'backtestMode') {
     const candles = JSON.parse(fs.readFileSync(config.backtest.dataFile, 'utf8'));
+    const indicatorPeriods = Object.values(config.strategy?.indicators || {}).filter((v) => Number.isFinite(v));
+    const warmupBars = Math.max(20, ...indicatorPeriods);
     const backtest = new BacktestEngine({ simulationEngine, analytics, logger });
     const report = await backtest.run(candles, {
-      signalInput: { candles, currentPrice: candles.at(-1).close, volume: candles.at(-1).volume, spreadPercent: 0.03, slippagePercent: 0.04 },
+      signalInput: { candles, currentPrice: candles.at(-1).close, volume: candles.at(-1).volume, spreadPercent: 0.03, slippagePercent: 0.04, warmupBars },
       riskInput: {
         account: { balance: config.simulation.initialBalance, freeMargin: config.simulation.initialBalance },
         portfolio: { openPositions: portfolio.getOpenPositionsCount() },
