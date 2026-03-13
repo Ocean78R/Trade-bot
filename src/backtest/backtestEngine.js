@@ -8,8 +8,16 @@ class BacktestEngine {
   }
 
   async run(candles, baseCtx) {
-    for (const candle of candles) {
-      await this.simulationEngine.onTick({ ...baseCtx, signalInput: { ...baseCtx.signalInput, currentPrice: candle.close } });
+    for (const [index, candle] of candles.entries()) {
+      const historicalCandles = candles.slice(0, index + 1);
+      await this.simulationEngine.onTick({
+        ...baseCtx,
+        signalInput: {
+          ...baseCtx.signalInput,
+          candles: historicalCandles,
+          currentPrice: candle.close
+        }
+      });
       this.analytics.onCandle(candle);
     }
     return this.analytics.buildReport();
