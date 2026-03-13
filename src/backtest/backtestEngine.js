@@ -8,8 +8,15 @@ class BacktestEngine {
   }
 
   async run(candles, baseCtx) {
+    const warmupBars = Math.max(0, Number(baseCtx?.signalInput?.warmupBars) || 0);
+
     for (const [index, candle] of candles.entries()) {
       const historicalCandles = candles.slice(0, index + 1);
+      if (historicalCandles.length < warmupBars) {
+        this.analytics.onCandle(candle);
+        continue;
+      }
+
       await this.simulationEngine.onTick({
         ...baseCtx,
         signalInput: {
