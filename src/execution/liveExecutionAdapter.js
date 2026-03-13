@@ -8,8 +8,9 @@ class LiveExecutionAdapter {
   }
 
   async openPosition({ symbol, side, qty, price }) {
+    const lockKey = `${symbol}:${side}:open`;
     const clientOrderId = crypto.randomUUID();
-    if (!this.orderRegistry.lock(symbol, side, clientOrderId)) {
+    if (!this.orderRegistry.lock(symbol, side, lockKey)) {
       throw new Error('Duplicate order submission blocked');
     }
     try {
@@ -21,7 +22,7 @@ class LiveExecutionAdapter {
         clientOrderId
       });
     } finally {
-      this.orderRegistry.release(symbol, side, clientOrderId);
+      this.orderRegistry.release(symbol, side, lockKey);
     }
   }
 
